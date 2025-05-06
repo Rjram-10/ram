@@ -11,7 +11,7 @@ pipeline {
         stage('Clone Repo'){
 
             steps{
-                git branch:'main',url:'https://github.com/kalyanappari/aboutjenkins.git'
+                git branch:'main',url:'https://github.com/Rjram-10/ram.git'
             }
         }
         stage('Build') {
