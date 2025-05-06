@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'kalyan3003/aboutjenkins'
+        IMAGE_NAME = 'rjram/jen'
         IMAGE_TAG = 'latest'
     }
 
@@ -16,14 +16,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                bat 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
             }
         }
         stage('Push') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
-                    sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                    bat "echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin"
+                    bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
         }
